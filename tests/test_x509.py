@@ -281,6 +281,7 @@ class X509TestCase(unittest.TestCase):
         end_entity_cert.set_subject(end_entity_cert_req.get_subject())
         end_entity_cert.set_pubkey(end_entity_cert_req.get_pubkey())
         end_entity_cert.sign(pk1, 'sha1')
+        assert end_entity_cert.check_proxy() == False
         proxycert = self.make_proxycert(end_entity_cert)
         proxycert.sign(pk2, 'sha1')
         assert proxycert.verify(pk2)
@@ -289,6 +290,7 @@ class X509TestCase(unittest.TestCase):
         assert proxycert.get_ext_count() == 1, proxycert.get_ext_count()
         assert proxycert.get_subject().as_text() == 'C=UK, CN=OpenSSL Group, CN=Proxy', proxycert.get_subject().as_text()
         assert proxycert.get_subject().as_text(indent=2, flags=m2.XN_FLAG_RFC2253) == '  CN=Proxy,CN=OpenSSL Group,C=UK', '"%s"' %  proxycert.get_subject().as_text(indent=2, flags=m2.XN_FLAG_RFC2253)
+        assert proxycert.check_proxy() == True
 
     def make_eecert(self, cacert):
         eecert = X509.X509()

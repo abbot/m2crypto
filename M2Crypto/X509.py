@@ -589,6 +589,19 @@ class X509:
         """
         return m2.x509_check_purpose(self.x509, id, ca)
 
+    def check_proxy(self):
+        """
+        Check if the certificate is an RFC 3820 compliant proxy certificate.
+
+        @return: True if the certificate is a proxy certificate, False otherwise.
+        """
+        for i in xrange(self.get_ext_count()):
+            ext = self.get_ext_at(i)
+            oid = ext.get_object().get_oid()
+            if oid == '1.3.6.1.5.5.7.1.14':
+                return True
+        return False
+
     def get_fingerprint(self, md='md5'):
         """
         Get the fingerprint of the certificate.
