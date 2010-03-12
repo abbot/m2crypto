@@ -74,6 +74,18 @@ class ASN1_Object:
     def _ptr(self):
         return self.asn1obj
 
+    def get_oid(self):
+        """
+        Returns a dotted string representation of the OID.
+        """
+        return m2.obj_obj2txt(self.asn1obj, 1)
+
+    def get_sn(self):
+        """
+        Returns a short name of the object
+        """
+        return m2.obj_nid2sn(m2.obj_obj2nid(self.asn1obj))
+
 class _UTC(datetime.tzinfo):
     def tzname(self, dt):
         return "UTC"

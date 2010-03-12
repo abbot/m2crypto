@@ -246,6 +246,8 @@ extern STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *);
 extern int X509_EXTENSION_get_critical(X509_EXTENSION *);
 %rename(x509_extension_set_critical) X509_EXTENSION_set_critical;
 extern int X509_EXTENSION_set_critical(X509_EXTENSION *, int);
+%rename(x509_extension_get_object) X509_EXTENSION_get_object;
+extern ASN1_OBJECT *X509_EXTENSION_get_object(X509_EXTENSION *ex);
 
 
 %constant int NID_commonName                  = 13;

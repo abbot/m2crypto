@@ -89,7 +89,15 @@ class X509_Extension:
         """
         buf=BIO.MemoryBuffer()
         m2.x509_ext_print(buf.bio_ptr(), self.x509_ext, flag, indent)
-        return buf.read_all()    
+        return buf.read_all()
+
+    def get_object(self):
+        """
+        Get the extension ASN1 Object
+
+        @return: ASN1.ASN1_Object for this extension
+        """
+        return ASN1.ASN1_Object(m2.x509_extension_get_object(self._ptr()), 0)
 
 
 class X509_Extension_Stack:

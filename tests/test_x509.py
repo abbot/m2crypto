@@ -49,6 +49,8 @@ class X509TestCase(unittest.TestCase):
         assert ext.get_value() == 'DNS:foobar.example.com'
         assert ext.get_value(indent=2) == '  DNS:foobar.example.com'
         assert ext.get_value(flag=m2.X509V3_EXT_PARSE_UNKNOWN) == 'DNS:foobar.example.com'
+        assert ext.get_object().get_oid() == '2.5.29.17'
+        assert ext.get_object().get_sn() == 'subjectAltName'
 
     def test_extstack(self):
         # new
@@ -114,6 +116,8 @@ class X509TestCase(unittest.TestCase):
         assert len(n) == 12, len(n)
         assert n.entry_count() == 12, n.entry_count()
         assert n.as_text() == 'C=US, ST=State or Province, L=locality name, O=orhanization name, OU=org unit, CN=common name/emailAddress=bob@example.com/serialNumber=1234, SN=surname, GN=given name, GN=name given, CN=Proxy', '"%s"' % n.as_text()
+        assert n[11].get_object().get_oid() == '2.5.4.3'
+        assert n[11].get_object().get_sn() == 'CN'
 
         self.assertRaises(AttributeError, n.__getattr__, 'foobar')
         n.foobar = 1
