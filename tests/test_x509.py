@@ -51,6 +51,7 @@ class X509TestCase(unittest.TestCase):
         assert ext.get_value(flag=m2.X509V3_EXT_PARSE_UNKNOWN) == 'DNS:foobar.example.com'
         assert ext.get_object().get_oid() == '2.5.29.17'
         assert ext.get_object().get_sn() == 'subjectAltName'
+        assert ext.get_value_der() == '0\x14\x82\x12foobar.example.com'
 
     def test_extstack(self):
         # new

@@ -99,6 +99,14 @@ class X509_Extension:
         """
         return ASN1.ASN1_Object(m2.x509_extension_get_object(self._ptr()), 0)
 
+    def get_value_der(self):
+        """
+        Return the extension value in DER format
+
+        @return: DER-encoded string
+        """
+        return m2.x509_extension_get_data(self.x509_ext)
+
 
 class X509_Extension_Stack:
     """

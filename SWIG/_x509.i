@@ -674,3 +674,11 @@ char *x509_name_oneline(X509_NAME *x) {
 }
 %}
 %typemap(ret) char *;
+
+%inline %{
+PyObject *x509_extension_get_data(X509_EXTENSION *ex)
+{
+    ASN1_OCTET_STRING *data = X509_EXTENSION_get_data(ex);
+    return PyString_FromStringAndSize(data->data, data->length);
+}
+%}
